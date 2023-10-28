@@ -5,7 +5,24 @@
 let timeEl = document.querySelector(".time");
 let secondsLeft = 75;
 
+// Class used to create question, answer, and choices
+class Question {
+    constructor(question, answer, choice1, choice2, choice3) {
+        this.question = question;
+        this.answer = answer;
+        this.choice1 = choice1;
+        this.choice2 = choice2;
+        this.choice3 = choice3;
+    }
+}
+// Question objects
+const question1 = new Question();
+const question2 = new Question();
+const question3 = new Question();
+const question4 = new Question();
+
 // array of objects containing questions, correct answers, and choices
+const questions = [question1, question2, question3, question4];
 
 // function to add new users and high scores
 function highScore (name, score) {
@@ -15,7 +32,7 @@ function highScore (name, score) {
 // function to cound down timer
 function setTime() {
     // Sets interval in variable
-    var timerInterval = setInterval(function() {
+    let timerInterval = setInterval(function() {
       secondsLeft--;
       timeEl.textContent = secondsLeft + " seconds left";
   
