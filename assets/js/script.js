@@ -34,10 +34,8 @@ const questions = [
 let score = 0;
 let currentQuestion = 0;
 let secondsLeft = 60;
-let username = "";
-//const timer = setInterval(startTimer, 1000);
 
-let timeEl = document.querySelector("timer");
+let timeEl = document.getElementById("timer");
 const questionContainer = document.getElementById("questionContainer");
 const questionText = document.getElementById("questionText");
 const choiceList = document.getElementById("choiceList");
@@ -61,33 +59,26 @@ function displayQuestion() {
     });
 }}
 
-
-// function to add new users and high scores
-function highScore () {
-    const player = {
-        name: highScore.value,
-        score: highScore.value
-    };
-    localStorage.setItem('High Scores', JSON.stringify(player));
-}
-
-
 // function to cound down timer
-/* function startTimer() {
+function startTimer() {
     if (secondsLeft > 0) {
-        timeEl.textContent = secondsLeft + " seconds";
+        timeEl.textContent = secondsLeft;
         secondsLeft--;
     }
     else {
         endQuiz();
     }
-  } */
+}
 
 
 function startQuiz() {
     startQuizButton.style.display = "none";
-     displayQuestion();
-    // startTimer();
+    let username = document.getElementById("username");
+    const nameText = document.getElementById("nameText");
+    nameText.style.display = "none";
+    username.style.display = "none";
+    setInterval(startTimer, 1000);
+    displayQuestion();
 }
 
 
@@ -116,5 +107,7 @@ function endQuiz() {
     questionContainer.style.display = "none";
    // timeEl.textContent = "Time's up!";
     localStorage.setItem('High Scores', JSON.stringify(highScore));
+    clearTimeout(endQuiz);
     alert(`Quiz Over! Your Score: ${score}/${questions.length}`);
+
 }
