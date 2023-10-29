@@ -35,7 +35,7 @@ let score = 0;
 let currentQuestion = 0;
 let secondsLeft = 60;
 let username = document.getElementById("username");
-
+let contInterval = setInterval(startTimer, 90000);
 let timeEl = document.getElementById("timer");
 const questionContainer = document.getElementById("questionContainer");
 const questionText = document.getElementById("questionText");
@@ -46,10 +46,6 @@ const highScoreButton = document.getElementById("highScore");
 
 startQuizButton.addEventListener("click", startQuiz);
 highScoreButton.addEventListener("click", highScore);
-let player = {
-    name: username.value,
-    score: score.value,
-  };
 
 function highScore() {
     highScoreButton.style.display = "none";
@@ -60,10 +56,9 @@ function highScore() {
     const nameTime = document.getElementById("time");
     nameTime.style.display = "none";
 
-    const scoreList = JSON.parse(localStorage.getItem("player"));
-    const scoreItem = document.createElement("li");
-    scoreItem.textContent = scoreList;
-    choiceList.appendChild(scoreItem)
+    const scoreList = localStorage.getItem("player");
+    const scoreName = JSON.parse(scoreList)
+    questionContainer.textContent = "Name: " + scoreName.name + " with a score of  " + scoreName.score;
 
 }
 function displayQuestion() {
@@ -87,6 +82,7 @@ function startTimer() {
         secondsLeft--;
     }
     else {
+        clearInterval(contInterval);
         endQuiz();
     }
 }
@@ -101,7 +97,7 @@ function startQuiz() {
     const nameText = document.getElementById("nameText");
     nameText.style.display = "none";
     username.style.display = "none";
-    setInterval(startTimer, 1000);
+    contInterval = setInterval(startTimer, 1000)
     displayQuestion();
 }
 
@@ -125,12 +121,19 @@ function checkAnswer(event) {
         endQuiz();
     }
 }
+function save() {
+    let player = {
+        name: username.value,
+        score: score
+      };
+    localStorage.setItem("player", JSON.stringify(player));
+};
 
 // when time runs out games ends and promps user for name to add to high score
 function endQuiz() {
     questionContainer.style.display = "none";
-    localStorage.setItem("player", JSON.stringify(player));
-    clearInterval(startTimer);
+    save();
+    clearInterval(contInterval);
     alert(`Quiz Over! Your Score: ${score}/${questions.length}`);
 
 }
