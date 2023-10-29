@@ -34,6 +34,7 @@ const questions = [
 let score = 0;
 let currentQuestion = 0;
 let secondsLeft = 60;
+let username = document.getElementById("username");
 
 let timeEl = document.getElementById("timer");
 const questionContainer = document.getElementById("questionContainer");
@@ -44,7 +45,27 @@ const startQuizButton = document.getElementById("startQuiz");
 const highScoreButton = document.getElementById("highScore");
 
 startQuizButton.addEventListener("click", startQuiz);
+highScoreButton.addEventListener("click", highScore);
+let player = {
+    name: username.value,
+    score: score.value,
+  };
 
+function highScore() {
+    highScoreButton.style.display = "none";
+    timeEl.style.display = "none";
+    username.style.display = "none";
+    const nameText = document.getElementById("nameText");
+    nameText.style.display = "none";
+    const nameTime = document.getElementById("time");
+    nameTime.style.display = "none";
+
+    const scoreList = JSON.parse(localStorage.getItem("player"));
+    const scoreItem = document.createElement("li");
+    scoreItem.textContent = scoreList;
+    choiceList.appendChild(scoreItem)
+
+}
 function displayQuestion() {
     if (currentQuestion < questions.length) {
         const currentQuestionData = questions[currentQuestion];
@@ -73,7 +94,10 @@ function startTimer() {
 
 function startQuiz() {
     startQuizButton.style.display = "none";
-    let username = document.getElementById("username");
+    if (userName = null) {
+        alert("Please enter your name.");
+        return;
+    }
     const nameText = document.getElementById("nameText");
     nameText.style.display = "none";
     username.style.display = "none";
@@ -91,7 +115,7 @@ function checkAnswer(event) {
     }
 // if question answer is wrong subtract time, display new question from array
     else if (selectedAnswer !== question.CorrectAnswer) {
-       // secondsLeft = secondsLeft - 10;
+        secondsLeft = secondsLeft - 10;
     }
     currentQuestion++;
     if (currentQuestion < questions.length) {
@@ -105,9 +129,8 @@ function checkAnswer(event) {
 // when time runs out games ends and promps user for name to add to high score
 function endQuiz() {
     questionContainer.style.display = "none";
-   // timeEl.textContent = "Time's up!";
-    localStorage.setItem('High Scores', JSON.stringify(highScore));
-    clearTimeout(endQuiz);
+    localStorage.setItem("player", JSON.stringify(player));
+    clearInterval(startTimer);
     alert(`Quiz Over! Your Score: ${score}/${questions.length}`);
 
 }
