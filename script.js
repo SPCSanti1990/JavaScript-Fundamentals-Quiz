@@ -4,25 +4,42 @@
 // user name, countdown, score
 let timeEl = document.querySelector(".time");
 let secondsLeft = 75;
+let score = 0;
+let currentQuestion = 0;
+const questionContainer = document.getElementById("questionContainer");
+const questionText = document.getElementById("questionText");
+const choiceList = document.getElementById("choiceList");
+const start = document.getElementById("start");
 
-// Class used to create question, answer, and choices
-class Question {
-    constructor(question, answer, choice1, choice2, choice3) {
-        this.question = question;
-        this.answer = answer;
-        this.choice1 = choice1;
-        this.choice2 = choice2;
-        this.choice3 = choice3;
+// Quiz questions and answers
+
+const questions = [
+    {
+        question:"JavaScript is an ____ language?",
+        choices:["Object-Oriented", "Object-Based", "Procedural", "None of the above"],
+        CorrectAnswer:0
+    },
+    {
+        question:"Which of the following keywords is used to define a variable?",
+        choices:["let", "char", "def", "None of the above"],
+        answer:0
+    },
+    {
+        question:"Which of the following methods can be used to display data in some form using Javascript",
+        choices:["document.write()", "consol.log()", "window.alert", "All of the above"],
+        answer:3
+    },
+    {
+        question:"Which of the following methods is used to access HTML elements using Javascript?",
+        choices:["getElementbyId()", "getElementByClassName()", "Both A and B", "None of the above"],
+        answer:2
+    },
+    {
+        question:"Which of the following methods is used to access HTML elements using Javascript?",
+        choices:["const", "var", "let", "constant"],
+        answer:0
     }
-}
-// Question objects
-const question1 = new Question();
-const question2 = new Question();
-const question3 = new Question();
-const question4 = new Question();
-
-// array of objects containing questions, correct answers, and choices
-const questions = [question1, question2, question3, question4];
+];
 
 // function to add new users and high scores
 function highScore (name, score) {
@@ -44,7 +61,6 @@ function setTime() {
   
     }, 1000);
   }
-// while loop until time runs out
 
 // if question answer is right add 1 to score, display new question from array
 
