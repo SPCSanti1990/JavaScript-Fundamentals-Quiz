@@ -8,4 +8,4 @@ Once the start button is clicked a question is displayed along with four choices
 <img alt="screenshot of the website" src="./assets/img/Screenshot.png">
 
 ## Links
-[Link to website](https://spcsanti1990.github.io/Password-Generator/)
+[Link to website](https://spcsanti1990.github.io/JavaScript-Fundamentals-Quiz/)
